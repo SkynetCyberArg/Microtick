@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predictor de Lotería</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="text-center my-4">
+            <h1>Predictor Estadístico de Lotería</h1>
+            <p class="lead">Descubre qué números tienen mayor probabilidad de salir en el próximo sorteo</p>
+        </header>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h2 class="h5 mb-0">Ingresa Datos Históricos</h2>
+                    </div>
+                    <div class="card-body">
+                        <form id="lottery-form">
+                            <div class="mb-3">
+                                <label for="lottery-type" class="form-label">Tipo de Lotería</label>
+                                <select class="form-select" id="lottery-type">
+                                    <option value="standard">Lotería Estándar (6 números de 1-49)</option>
+                                    <option value="powerball">Powerball (5 números + 1 especial)</option>
+                                    <option value="custom">Personalizado</option>
+                                </select>
+                            </div>
+                            
+                            <div id="custom-settings" class="mb-3 d-none">
+                                <div class="row g-2">
+                                    <div class="col-6">
+                                        <label for="min-number" class="form-label">Número mínimo</label>
+                                        <input type="number" class="form-control" id="min-number" value="1">
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="max-number" class="form-label">Número máximo</label>
+                                        <input type="number" class="form-control" id="max-number" value="49">
+                                    </div>
+                                    <div class="col-12 mt-2">
+                                        <label for="numbers-to-draw" class="form-label">Números a extraer</label>
+                                        <input type="number" class="form-control" id="numbers-to-draw" value="6">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="historical-data" class="form-label">Datos Históricos (un sorteo por línea, números separados por espacios)</label>
+                                <textarea class="form-control" id="historical-data" rows="6" placeholder="Ejemplo:
+1 15 23 34 42 48
+7 12 25 30 41 45
+..."></textarea>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label">O carga un archivo CSV/TXT</label>
+                                <input class="form-control" type="file" id="file-upload" accept=".csv,.txt">
+                            </div>
+
+                            <button type="submit" class="btn btn-primary w-100">Analizar y Predecir</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-header bg-success text-white">
+                        <h2 class="h5 mb-0">Resultados de Predicción</h2>
+                    </div>
+                    <div class="card-body">
+                        <div id="loading" class="text-center d-none">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Cargando...</span>
+                            </div>
+                            <p class="mt-2">Analizando datos y generando predicciones...</p>
+                        </div>
+                        
+                        <div id="results" class="d-none">
+                            <h3 class="h5">Números con Mayor Probabilidad</h3>
+                            <div id="prediction-numbers" class="d-flex flex-wrap justify-content-center mb-4">
+                                <!-- Los números predichos se mostrarán aquí -->
+                            </div>
+                            
+                            <h3 class="h5">Análisis de Frecuencia</h3>
+                            <div class="chart-container">
+                                <canvas id="frequency-chart"></canvas>
+                            </div>
+                            
+                            <h3 class="h5 mt-4">Patrones Detectados</h3>
+                            <ul id="patterns-list" class="list-group">
+                                <!-- Los patrones detectados se mostrarán aquí -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header bg-info text-white">
+                        <h2 class="h5 mb-0">Estadísticas</h2>
+                    </div>
+                    <div class="card-body">
+                        <div id="stats-container">
+                            <p>Ingresa datos históricos para ver estadísticas detalladas.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card mb-4">
+                    <div class="card-header bg-secondary text-white">
+                        <h2 class="h5 mb-0">Cómo Funciona</h2>
+                    </div>
+                    <div class="card-body">
+                        <p>Esta aplicación utiliza varios métodos estadísticos para analizar datos históricos de lotería:</p>
+                        <ol>
+                            <li><strong>Análisis de Frecuencia:</strong> Identifica qué números aparecen con mayor frecuencia en sorteos anteriores.</li>
+                            <li><strong>Análisis de Patrones:</strong> Busca patrones en la secuencia de números ganadores.</li>
+                            <li><strong>Análisis de Pares y Tríos:</strong> Identifica combinaciones de números que tienden a aparecer juntos.</li>
+                            <li><strong>Análisis de Tendencia:</strong> Examina si ciertos números están "calientes" (aparecen frecuentemente en sorteos recientes) o "fríos" (no han aparecido en mucho tiempo).</li>
+                        </ol>
+                        <div class="alert alert-warning">
+                            <strong>Nota importante:</strong> Esta herramienta se basa en análisis estadístico y no garantiza resultados ganadores. La lotería es fundamentalmente un juego de azar.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white text-center py-3 mt-4">
+        <div class="container">
+            <p class="mb-0">© 2023 Predictor Estadístico de Lotería | Desarrollado con fines educativos</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

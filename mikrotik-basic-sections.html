@@ -1,0 +1,393 @@
+<!-- Sección de Conceptos Básicos -->
+<section id="conceptos-basicos" class="mb-5">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h2 class="h4 mb-0">2. Conceptos Básicos</h2>
+        </div>
+        <div class="card-body">
+            <section id="que-es-mikrotik" class="mb-4">
+                <h3 class="h5">2.1 ¿Qué es MikroTik?</h3>
+                <p>MikroTik es una empresa de Letonia que fabrica equipos de redes y desarrolla el sistema operativo RouterOS, una solución de software que convierte un ordenador o router en un router de red dedicado. Sus principales características son:</p>
+                <ul>
+                    <li><strong>RouterOS:</strong> Sistema operativo basado en Linux que proporciona funciones avanzadas de enrutamiento, firewall, gestión de ancho de banda, punto de acceso inalámbrico, servidor de backhaul, hotspot gateway, servidor VPN y más.</li>
+                    <li><strong>RouterBOARD:</strong> Hardware propietario que viene con RouterOS preinstalado.</li>
+                    <li><strong>Versatilidad:</strong> Desde pequeños routers domésticos hasta equipos para proveedores de servicios de Internet (ISP).</li>
+                    <li><strong>Relación calidad-precio:</strong> Ofrece funcionalidades avanzadas a un costo competitivo comparado con otras marcas como Cisco o Juniper.</li>
+                </ul>
+                <div class="alert alert-info">
+                    <i class="bi bi-info-circle-fill me-2"></i>
+                    <strong>Nota:</strong> MikroTik es especialmente popular entre ISPs pequeños y medianos, así como en entornos empresariales donde se requiere un control detallado de la red a un costo razonable.
+                </div>
+            </section>
+
+            <section id="que-es-balanceo" class="mb-4">
+                <h3 class="h5">2.2 ¿Qué es el balanceo de carga?</h3>
+                <p>El balanceo de carga (load balancing) es una técnica utilizada en redes informáticas para distribuir el tráfico de red entre múltiples enlaces o conexiones a Internet. En el contexto de MikroTik, se refiere a la capacidad de distribuir el tráfico saliente entre dos o más conexiones WAN.</p>
+                
+                <p>Existen principalmente dos métodos de balanceo de carga en MikroTik:</p>
+                <ul>
+                    <li><strong>PCC (Per Connection Classifier):</strong> Distribuye las conexiones entre múltiples enlaces basándose en la información de origen y destino de los paquetes.</li>
+                    <li><strong>ECMP (Equal Cost Multi-Path):</strong> Distribuye los paquetes entre múltiples rutas de igual costo según algoritmos como round-robin, random o por-paquete.</li>
+                </ul>
+                
+                <p>Además, MikroTik permite configurar:</p>
+                <ul>
+                    <li><strong>Balanceo simétrico:</strong> Asegura que los paquetes de ida y vuelta de una misma conexión utilicen el mismo enlace.</li>
+                    <li><strong>Balanceo asimétrico:</strong> Permite que los paquetes de ida y vuelta puedan utilizar enlaces diferentes.</li>
+                    <li><strong>Balanceo por peso:</strong> Asigna diferentes proporciones de tráfico a cada enlace según su capacidad.</li>
+                </ul>
+            </section>
+
+            <section id="beneficios" class="mb-4">
+                <h3 class="h5">2.3 Beneficios del balanceo de carga</h3>
+                <p>Implementar balanceo de carga en una red con routers MikroTik ofrece numerosas ventajas:</p>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card h-100 border-primary mb-3">
+                            <div class="card-header bg-primary text-white">Rendimiento</div>
+                            <div class="card-body">
+                                <ul>
+                                    <li>Mayor ancho de banda total disponible</li>
+                                    <li>Mejor distribución del tráfico</li>
+                                    <li>Reducción de la congestión en enlaces individuales</li>
+                                    <li>Optimización del uso de recursos de red</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card h-100 border-success mb-3">
+                            <div class="card-header bg-success text-white">Disponibilidad</div>
+                            <div class="card-body">
+                                <ul>
+                                    <li>Mayor redundancia y tolerancia a fallos</li>
+                                    <li>Continuidad del servicio ante fallos de un ISP</li>
+                                    <li>Posibilidad de mantenimiento sin interrupciones</li>
+                                    <li>Reducción de puntos únicos de fallo</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <div class="card h-100 border-info mb-3">
+                            <div class="card-header bg-info text-white">Flexibilidad</div>
+                            <div class="card-body">
+                                <ul>
+                                    <li>Posibilidad de combinar diferentes tipos de conexiones</li>
+                                    <li>Enrutamiento basado en tipo de tráfico</li>
+                                    <li>Adaptabilidad a diferentes necesidades de red</li>
+                                    <li>Escalabilidad para crecimiento futuro</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card h-100 border-warning mb-3">
+                            <div class="card-header bg-warning text-dark">Económicos</div>
+                            <div class="card-body">
+                                <ul>
+                                    <li>Aprovechamiento de múltiples conexiones económicas</li>
+                                    <li>Alternativa a enlaces dedicados de mayor costo</li>
+                                    <li>Optimización de contratos con diferentes ISPs</li>
+                                    <li>Mejor relación costo-beneficio</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</section>
+
+<!-- Sección de Requisitos Previos -->
+<section id="requisitos" class="mb-5">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h2 class="h4 mb-0">3. Requisitos Previos</h2>
+        </div>
+        <div class="card-body">
+            <section id="hardware" class="mb-4">
+                <h3 class="h5">3.1 Hardware necesario</h3>
+                <p>Para implementar balanceo de carga con MikroTik, necesitarás el siguiente hardware:</p>
+                
+                <table class="table table-bordered">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>Componente</th>
+                            <th>Requisitos mínimos</th>
+                            <th>Recomendado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Router MikroTik</strong></td>
+                            <td>Cualquier modelo con RouterOS v6.x o superior y al menos 3 puertos Ethernet</td>
+                            <td>hAP ac², RB450Gx4, RB4011, CCR series (para redes más grandes)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Interfaces WAN</strong></td>
+                            <td>Mínimo 2 puertos para conexiones a Internet</td>
+                            <td>2-4 puertos dependiendo del número de ISPs</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Interfaces LAN</strong></td>
+                            <td>Al menos 1 puerto para red local</td>
+                            <td>Switch integrado o externo para múltiples dispositivos</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Memoria RAM</strong></td>
+                            <td>128MB para redes pequeñas</td>
+                            <td>256MB o más para redes medianas/grandes</td>
+                        </tr>
+                        <tr>
+                            <td><strong>CPU</strong></td>
+                            <td>Procesador de 600MHz</td>
+                            <td>Procesador dual-core o quad-core para mejor rendimiento</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="alert alert-warning">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                    <strong>Importante:</strong> El hardware requerido dependerá del volumen de tráfico, número de conexiones simultáneas y funciones adicionales que se implementen (firewall, QoS, VPN, etc.).
+                </div>
+            </section>
+
+            <section id="software" class="mb-4">
+                <h3 class="h5">3.2 Software y versiones</h3>
+                <p>Para una implementación exitosa de balanceo de carga, se recomienda:</p>
+                
+                <ul>
+                    <li><strong>RouterOS:</strong> Versión 6.48 o superior (recomendado v7.x para características más recientes)</li>
+                    <li><strong>Winbox:</strong> Última versión disponible para configuración gráfica</li>
+                    <li><strong>Herramientas opcionales:</strong>
+                        <ul>
+                            <li>The Dude: Para monitorización de red</li>
+                            <li>Netwatch: Para supervisión de enlaces (incluido en RouterOS)</li>
+                            <li>Herramientas de diagnóstico: ping, traceroute, torch (analizador de tráfico)</li>
+                        </ul>
+                    </li>
+                </ul>
+                
+                <div class="alert alert-info">
+                    <i class="bi bi-info-circle-fill me-2"></i>
+                    <strong>Nota:</strong> Siempre es recomendable mantener actualizado el RouterOS a la última versión estable para beneficiarse de mejoras de seguridad y rendimiento.
+                </div>
+                
+                <div class="code-block">
+                    <pre><code># Verificar la versión actual de RouterOS
+/system resource print
+
+# Verificar si hay actualizaciones disponibles
+/system package update check-for-updates
+
+# Actualizar RouterOS (realizar backup antes)
+/system backup save name=before_update
+/system package update install</code></pre>
+                </div>
+            </section>
+
+            <section id="topologia" class="mb-4">
+                <h3 class="h5">3.3 Topología de red recomendada</h3>
+                <p>Para implementar balanceo de carga, se recomienda la siguiente topología básica:</p>
+                
+                <div class="text-center my-4">
+                    <div class="diagram-container p-3 border rounded">
+                        <pre class="text-start">
+                            Internet
+                               ↑
+                               |
+            +----------------+----------------+
+            |                |                |
+        +---+---+        +---+---+        +---+---+
+        |  ISP1  |        |  ISP2  |        |  ISP3  |  (Opcional)
+        +---+---+        +---+---+        +---+---+
+            |                |                |
+            +----------------+----------------+
+                               |
+                          +----+----+
+                          | MikroTik |
+                          |  Router  |
+                          +----+----+
+                               |
+                               |
+                        +-----+-----+
+                        |    LAN     |
+                        |   Switch   |
+                        +-----+-----+
+                               |
+            +----------------+----------------+
+            |                |                |
+        +---+---+        +---+---+        +---+---+
+        |  PC1   |        |  PC2   |        | Otros |
+        +-------+        +-------+        +-------+
+                        </pre>
+                    </div>
+                    <p class="text-muted mt-2"><small>Figura 2: Topología recomendada para balanceo de carga</small></p>
+                </div>
+                
+                <p><strong>Consideraciones importantes:</strong></p>
+                <ul>
+                    <li>Cada ISP debe estar conectado a una interfaz WAN diferente del router MikroTik</li>
+                    <li>La red LAN debe estar en una subred diferente a las utilizadas por los ISPs</li>
+                    <li>Se recomienda utilizar direcciones IP estáticas en las interfaces WAN cuando sea posible</li>
+                    <li>Considerar la implementación de VLANs si se requiere segmentación de la red</li>
+                </ul>
+                
+                <div class="alert alert-success">
+                    <i class="bi bi-check-circle-fill me-2"></i>
+                    <strong>Recomendación:</strong> Documentar detalladamente la topología de red, incluyendo direcciones IP, gateways, DNS y otros parámetros relevantes antes de comenzar la implementación.
+                </div>
+            </section>
+        </div>
+    </div>
+</section>
+
+<!-- Sección de Configuración Básica del Router -->
+<section id="configuracion-basica" class="mb-5">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h2 class="h4 mb-0">4. Configuración Básica del Router</h2>
+        </div>
+        <div class="card-body">
+            <section id="acceso-inicial" class="mb-4">
+                <h3 class="h5">4.1 Acceso inicial al router</h3>
+                <p>Antes de configurar el balanceo de carga, es necesario establecer acceso al router MikroTik. Existen varias formas de hacerlo:</p>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card mb-3">
+                            <div class="card-header bg-light">Acceso vía Winbox</div>
+                            <div class="card-body">
+                                <ol class="numbered-steps">
+                                    <li>Descarga Winbox desde la <a href="https://mikrotik.com/download" target="_blank">página oficial de MikroTik</a></li>
+                                    <li>Conecta tu PC a un puerto Ethernet del router</li>
+                                    <li>Abre Winbox y busca tu router en la pestaña "Neighbors"</li>
+                                    <li>Conéctate usando la dirección MAC (recomendado para primer acceso) o IP</li>
+                                    <li>Credenciales por defecto: usuario <code>admin</code>, sin contraseña</li>
+                                </ol>
+                                <div class="text-center">
+                                    <img src="https://i.mt.lv/cdn/product_files/RB951Ui-2nD_34234.png" alt="Winbox Interface" class="img-fluid rounded" style="max-width: 90%; max-height: 150px;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card mb-3">
+                            <div class="card-header bg-light">Acceso vía WebFig</div>
+                            <div class="card-body">
+                                <ol class="numbered-steps">
+                                    <li>Conecta tu PC a un puerto Ethernet del router</li>
+                                    <li>Configura tu PC con una IP en la misma subred (ej. 192.168.88.x)</li>
+                                    <li>Abre un navegador web y accede a la IP del router (por defecto 192.168.88.1)</li>
+                                    <li>Inicia sesión con las credenciales por defecto</li>
+                                    <li>Navega por la interfaz web para configurar el router</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="alert alert-danger mt-3">
+                    <i class="bi bi-shield-exclamation me-2"></i>
+                    <strong>¡Importante!</strong> Por seguridad, cambia inmediatamente la contraseña por defecto:
+                    <div class="code-block mt-2">
+                        <pre><code># Vía terminal/SSH
+/user set admin password=NuevaContraseñaSegura
+
+# O desde Winbox: System > Users > selecciona 'admin' > Password</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section id="interfaces" class="mb-4">
+                <h3 class="h5">4.2 Configuración de interfaces</h3>
+                <p>El primer paso para configurar el balanceo de carga es identificar y configurar correctamente las interfaces del router:</p>
+                
+                <div class="code-block">
+                    <pre><code># Listar todas las interfaces disponibles
+/interface print</code></pre>
+                </div>
+                
+                <p>Es recomendable renombrar las interfaces para facilitar su identificación:</p>
+                
+                <div class="code-block">
+                    <pre><code># Renombrar interfaces (ejemplo)
+/interface set ether1 name=ether1-WAN1
+/interface set ether2 name=ether2-WAN2
+/interface set ether3 name=ether3-LAN
+/interface set ether4 name=ether4-LAN
+/interface set ether5 name=ether5-LAN</code></pre>
+                </div>
+                
+                <p>Para configuraciones más complejas, puedes crear un bridge para agrupar las interfaces LAN:</p>
+                
+                <div class="code-block">
+                    <pre><code># Crear un bridge para la LAN
+/interface bridge add name=bridge-LAN
+
+# Añadir interfaces al bridge
+/interface bridge port add bridge=bridge-LAN interface=ether3-LAN
+/interface bridge port add bridge=bridge-LAN interface=ether4-LAN
+/interface bridge port add bridge=bridge-LAN interface=ether5-LAN</code></pre>
+                </div>
+                
+                <div class="alert alert-info">
+                    <i class="bi bi-info-circle-fill me-2"></i>
+                    <strong>Nota:</strong> La configuración de interfaces puede variar según el modelo de router MikroTik y la topología de red específica.
+                </div>
+            </section>
+
+            <section id="direccionamiento" class="mb-4">
+                <h3 class="h5">4.3 Direccionamiento IP</h3>
+                <p>Una vez configuradas las interfaces, es necesario asignar direcciones IP:</p>
+                
+                <div class="code-block">
+                    <pre><code># Configurar IPs para interfaces WAN (ejemplo con DHCP)
+/ip dhcp-client add interface=ether1-WAN1 disabled=no
+/ip dhcp-client add interface=ether2-WAN2 disabled=no
+
+# Alternativamente, configurar IPs estáticas para WAN
+/ip address add address=203.0.113.2/24 interface=ether1-WAN1
+/ip address add address=198.51.100.2/24 interface=ether2-WAN2
+
+# Configurar IP para la LAN
+/ip address add address=192.168.1.1/24 interface=bridge-LAN</code></pre>
+                </div>
+                
+                <p>Configurar el servidor DHCP para la red LAN:</p>
+                
+                <div class="code-block">
+                    <pre><code># Crear un pool de direcciones DHCP
+/ip pool add name=dhcp-pool-LAN ranges=192.168.1.100-192.168.1.200
+
+# Configurar servidor DHCP
+/ip dhcp-server add name=dhcp-LAN interface=bridge-LAN address-pool=dhcp-pool-LAN disabled=no
+
+# Configurar red DHCP
+/ip dhcp-server network add address=192.168.1.0/24 gateway=192.168.1.1 dns-server=8.8.8.8,8.8.4.4</code></pre>
+                </div>
+                
+                <p>Verificar la configuración IP:</p>
+                
+                <div class="code-block">
+                    <pre><code># Verificar direcciones IP configuradas
+/ip address print
+
+# Verificar clientes DHCP
+/ip dhcp-server lease print</code></pre>
+                </div>
+                
+                <div class="alert alert-success">
+                    <i class="bi bi-check-circle-fill me-2"></i>
+                    <strong>Recomendación:</strong> Utiliza subredes diferentes para cada segmento de red (WAN1, WAN2, LAN) para evitar conflictos de enrutamiento.
+                </div>
+            </section>
+        </div>
+    </div>
+</section>

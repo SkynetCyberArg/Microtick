@@ -1,0 +1,174 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <!-- Definición de estilos y gradientes -->
+  <defs>
+    <!-- Gradiente para router MikroTik -->
+    <linearGradient id="routerGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0061a8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#007bff;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Gradiente para ISPs -->
+    <linearGradient id="ispGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#28a745;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#20c997;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Gradiente para ISP inactivo -->
+    <linearGradient id="ispInactiveGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6c757d;stop-opacity:0.7" />
+      <stop offset="100%" style="stop-color:#495057;stop-opacity:0.7" />
+    </linearGradient>
+    
+    <!-- Gradiente para dispositivos de red local -->
+    <linearGradient id="deviceGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6c757d;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#495057;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Gradiente para tráfico -->
+    <linearGradient id="trafficGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fd7e14;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e83e8c;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Sombra para elementos -->
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-color="rgba(0,0,0,0.3)" />
+    </filter>
+    
+    <!-- Patrón para área de routing -->
+    <pattern id="routingPattern" patternUnits="userSpaceOnUse" width="10" height="10" patternTransform="rotate(45)">
+      <rect width="10" height="10" fill="#f8f9fa"/>
+      <line x1="0" y1="0" x2="0" y2="10" stroke="#dee2e6" stroke-width="1"/>
+    </pattern>
+    
+    <!-- Animación para el tráfico -->
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#fd7e14" />
+    </marker>
+  </defs>
+  
+  <!-- Fondo del diagrama -->
+  <rect width="800" height="600" fill="#f8f9fa" rx="10" ry="10" />
+  
+  <!-- Título del diagrama -->
+  <text x="400" y="30" font-family="'Segoe UI', sans-serif" font-size="20" text-anchor="middle" fill="#2c3e50" font-weight="bold">Funcionamiento del Failover en MikroTik</text>
+  
+  <!-- Internet (Nube) -->
+  <path d="M400,80 C450,60 500,70 520,100 C550,90 580,110 570,140 C590,160 580,190 550,200 C560,230 530,250 500,240 C480,270 430,270 410,240 C380,260 340,240 340,210 C310,200 300,170 320,150 C310,120 340,90 370,100 C380,70 430,60 400,80" fill="#e9ecef" stroke="#ced4da" stroke-width="2" filter="url(#shadow)" />
+  <text x="400" y="160" font-family="'Segoe UI', sans-serif" font-size="18" text-anchor="middle" fill="#495057" font-weight="bold">INTERNET</text>
+  
+  <!-- Escenario 1: Conexión Principal Activa -->
+  <g id="escenario1">
+    <!-- Título del escenario -->
+    <text x="200" y="240" font-family="'Segoe UI', sans-serif" font-size="16" text-anchor="middle" fill="#2c3e50" font-weight="bold">Escenario 1: Conexión Principal Activa</text>
+    
+    <!-- ISP 1 (WAN1) - Activo -->
+    <rect x="100" y="270" width="100" height="50" rx="10" ry="10" fill="url(#ispGradient)" stroke="#28a745" stroke-width="2" filter="url(#shadow)" />
+    <text x="150" y="300" font-family="'Segoe UI', sans-serif" font-size="14" text-anchor="middle" fill="white" font-weight="bold">WAN1</text>
+    <text x="150" y="315" font-family="'Segoe UI', sans-serif" font-size="10" text-anchor="middle" fill="white">(Principal)</text>
+    
+    <!-- ISP 2 (WAN2) - Inactivo -->
+    <rect x="220" y="270" width="100" height="50" rx="10" ry="10" fill="url(#ispInactiveGradient)" stroke="#6c757d" stroke-width="2" filter="url(#shadow)" />
+    <text x="270" y="300" font-family="'Segoe UI', sans-serif" font-size="14" text-anchor="middle" fill="white" font-weight="bold">WAN2</text>
+    <text x="270" y="315" font-family="'Segoe UI', sans-serif" font-size="10" text-anchor="middle" fill="white">(Respaldo)</text>
+    
+    <!-- Conexiones de Internet a ISPs -->
+    <line x1="150" y1="200" x2="150" y2="270" stroke="#28a745" stroke-width="3" />
+    <line x1="270" y1="200" x2="270" y2="270" stroke="#6c757d" stroke-width="2" stroke-dasharray="5,5" />
+    
+    <!-- Router MikroTik -->
+    <rect x="100" y="350" width="220" height="100" rx="10" ry="10" fill="white" stroke="#0061a8" stroke-width="2" filter="url(#shadow)" />
+    <text x="210" y="370" font-family="'Segoe UI', sans-serif" font-size="14" text-anchor="middle" fill="#0061a8" font-weight="bold">Router MikroTik</text>
+    
+    <!-- Tabla de rutas dentro del router -->
+    <rect x="120" y="380" width="180" height="60" rx="5" ry="5" fill="url(#routingPattern)" stroke="#6c757d" stroke-width="1" />
+    <text x="210" y="395" font-family="'Segoe UI', sans-serif" font-size="12" text-anchor="middle" fill="#495057" font-weight="bold">Tabla de Rutas</text>
+    <text x="210" y="415" font-family="'Segoe UI', sans-serif" font-size="10" text-anchor="middle" fill="#28a745" font-weight="bold">0.0.0.0/0 via WAN1 distance=1 (A)</text>
+    <text x="210" y="430" font-family="'Segoe UI', sans-serif" font-size="10" text-anchor="middle" fill="#6c757d">0.0.0.0/0 via WAN2 distance=2 (A)</text>
+    
+    <!-- Red Local -->
+    <rect x="100" y="480" width="220" height="40" rx="20" ry="20" fill="#e9ecef" stroke="#ced4da" stroke-width="2" filter="url(#shadow)" />
+    <text x="210" y="505" font-family="'Segoe UI', sans-serif" font-size="14" text-anchor="middle" fill="#495057" font-weight="bold">RED LOCAL (LAN)</text>
+    
+    <!-- Conexión de Router a Red Local -->
+    <line x1="210" y1="450" x2="210" y2="480" stroke="#6c757d" stroke-width="3" />
+    
+    <!-- Flujo de tráfico activo por WAN1 -->
+    <path d="M210,480 C210,450 180,420 150,350" stroke="url(#trafficGradient)" stroke-width="3" fill="none" marker-end="url(#arrowhead)" />
+  </g>
+  
+  <!-- Escenario 2: Conexión Principal Caída -->
+  <g id="escenario2">
+    <!-- Título del escenario -->
+    <text x="600" y="240" font-family="'Segoe UI', sans-serif" font-size="16" text-anchor="middle" fill="#2c3e50" font-weight="bold">Escenario 2: Conexión Principal Caída</text>
+    
+    <!-- ISP 1 (WAN1) - Inactivo/Caído -->
+    <rect x="500" y="270" width="100" height="50" rx="10" ry="10" fill="url(#ispInactiveGradient)" stroke="#dc3545" stroke-width="2" stroke-dasharray="5,5" filter="url(#shadow)" />
+    <text x="550" y="300" font-family="'Segoe UI', sans-serif" font-size="14" text-anchor="middle" fill="white" font-weight="bold">WAN1</text>
+    <text x="550" y="315" font-family="'Segoe UI', sans-serif" font-size="10" text-anchor="middle" fill="white">(Caída)</text>
+    
+    <!-- Símbolo de error en WAN1 -->
+    <circle cx="550" cy="295" r="15" fill="#dc3545" />
+    <text x="550" y="300" font-family="'Segoe UI', sans-serif" font-size="16" text-anchor="middle" fill="white" font-weight="bold">!</text>
+    
+    <!-- ISP 2 (WAN2) - Activo -->
+    <rect x="620" y="270" width="100" height="50" rx="10" ry="10" fill="url(#ispGradient)" stroke="#28a745" stroke-width="2" filter="url(#shadow)" />
+    <text x="670" y="300" font-family="'Segoe UI', sans-serif" font-size="14" text-anchor="middle" fill="white" font-weight="bold">WAN2</text>
+    <text x="670" y="315" font-family="'Segoe UI', sans-serif" font-size="10" text-anchor="middle" fill="white">(Respaldo)</text>
+    
+    <!-- Conexiones de Internet a ISPs -->
+    <line x1="550" y1="200" x2="550" y2="270" stroke="#dc3545" stroke-width="2" stroke-dasharray="5,5" />
+    <line x1="670" y1="200" x2="670" y2="270" stroke="#28a745" stroke-width="3" />
+    
+    <!-- Router MikroTik -->
+    <rect x="500" y="350" width="220" height="100" rx="10" ry="10" fill="white" stroke="#0061a8" stroke-width="2" filter="url(#shadow)" />
+    <text x="610" y="370" font-family="'Segoe UI', sans-serif" font-size="14" text-anchor="middle" fill="#0061a8" font-weight="bold">Router MikroTik</text>
+    
+    <!-- Tabla de rutas dentro del router -->
+    <rect x="520" y="380" width="180" height="60" rx="5" ry="5" fill="url(#routingPattern)" stroke="#6c757d" stroke-width="1" />
+    <text x="610" y="395" font-family="'Segoe UI', sans-serif" font-size="12" text-anchor="middle" fill="#495057" font-weight="bold">Tabla de Rutas</text>
+    <text x="610" y="415" font-family="'Segoe UI', sans-serif" font-size="10" text-anchor="middle" fill="#dc3545" stroke-dasharray="2,2">0.0.0.0/0 via WAN1 distance=1 (I)</text>
+    <text x="610" y="430" font-family="'Segoe UI', sans-serif" font-size="10" text-anchor="middle" fill="#28a745" font-weight="bold">0.0.0.0/0 via WAN2 distance=2 (A)</text>
+    
+    <!-- Red Local -->
+    <rect x="500" y="480" width="220" height="40" rx="20" ry="20" fill="#e9ecef" stroke="#ced4da" stroke-width="2" filter="url(#shadow)" />
+    <text x="610" y="505" font-family="'Segoe UI', sans-serif" font-size="14" text-anchor="middle" fill="#495057" font-weight="bold">RED LOCAL (LAN)</text>
+    
+    <!-- Conexión de Router a Red Local -->
+    <line x1="610" y1="450" x2="610" y2="480" stroke="#6c757d" stroke-width="3" />
+    
+    <!-- Flujo de tráfico activo por WAN2 -->
+    <path d="M610,480 C610,450 640,420 670,350" stroke="url(#trafficGradient)" stroke-width="3" fill="none" marker-end="url(#arrowhead)" />
+  </g>
+  
+  <!-- Explicación del proceso de failover -->
+  <rect x="300" y="350" width="200" height="170" rx="5" ry="5" fill="white" stroke="#ced4da" stroke-width="1" filter="url(#shadow)" />
+  <text x="400" y="370" font-family="'Segoe UI', sans-serif" font-size="14" text-anchor="middle" fill="#2c3e50" font-weight="bold">Proceso de Failover</text>
+  
+  <text x="310" y="395" font-family="'Segoe UI', sans-serif" font-size="12" text-anchor="start" fill="#2c3e50">1. Router detecta falla en WAN1</text>
+  <text x="310" y="415" font-family="'Segoe UI', sans-serif" font-size="12" text-anchor="start" fill="#2c3e50">2. Marca ruta WAN1 como inactiva</text>
+  <text x="310" y="435" font-family="'Segoe UI', sans-serif" font-size="12" text-anchor="start" fill="#2c3e50">3. Activa automáticamente</text>
+  <text x="325" y="450" font-family="'Segoe UI', sans-serif" font-size="12" text-anchor="start" fill="#2c3e50">la siguiente ruta disponible</text>
+  <text x="310" y="470" font-family="'Segoe UI', sans-serif" font-size="12" text-anchor="start" fill="#2c3e50">4. Redirige tráfico por WAN2</text>
+  <text x="310" y="490" font-family="'Segoe UI', sans-serif" font-size="12" text-anchor="start" fill="#2c3e50">5. Continúa monitorizando</text>
+  <text x="325" y="505" font-family="'Segoe UI', sans-serif" font-size="12" text-anchor="start" fill="#2c3e50">WAN1 para recuperación</text>
+  
+  <!-- Flecha de transición entre escenarios -->
+  <path d="M330,300 L470,300" stroke="#dc3545" stroke-width="2" fill="none" marker-end="url(#arrowhead)" />
+  <text x="400" y="290" font-family="'Segoe UI', sans-serif" font-size="12" text-anchor="middle" fill="#dc3545" font-weight="bold">Falla en WAN1</text>
+  
+  <!-- Leyenda -->
+  <rect x="300" y="150" width="200" height="130" rx="5" ry="5" fill="white" stroke="#ced4da" stroke-width="1" filter="url(#shadow)" />
+  <text x="400" y="170" font-family="'Segoe UI', sans-serif" font-size="14" text-anchor="middle" fill="#2c3e50" font-weight="bold">Leyenda</text>
+  
+  <!-- Elementos de la leyenda -->
+  <rect x="310" y="180" width="20" height="20" rx="3" ry="3" fill="url(#ispGradient)" stroke="#28a745" stroke-width="1" />
+  <text x="340" y="195" font-family="'Segoe UI', sans-serif" font-size="12" text-anchor="start" fill="#2c3e50">Conexión Activa</text>
+  
+  <rect x="310" y="210" width="20" height="20" rx="3" ry="3" fill="url(#ispInactiveGradient)" stroke="#dc3545" stroke-width="1" stroke-dasharray="5,5" />
+  <text x="340" y="225" font-family="'Segoe UI', sans-serif" font-size="12" text-anchor="start" fill="#2c3e50">Conexión Caída</text>
+  
+  <path d="M310,245 L330,245" stroke="url(#trafficGradient)" stroke-width="3" fill="none" marker-end="url(#arrowhead)" />
+  <text x="340" y="250" font-family="'Segoe UI', sans-serif" font-size="12" text-anchor="start" fill="#2c3e50">Flujo de Tráfico</text>
+</svg>

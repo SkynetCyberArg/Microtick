@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual de Configuraciones Básicas de Router MikroTik para Balanceo de Carga</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="mikrotik-styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="text-center my-4">
+            <h1>Manual de Configuraciones Básicas de Router MikroTik</h1>
+            <p class="lead">Guía completa para implementar balanceo de carga con esquemas y tutoriales paso a paso</p>
+        </header>
+
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h2 class="h4 mb-0">Índice de Contenidos</h2>
+                    </div>
+                    <div class="card-body">
+                        <ul class="toc-list">
+                            <li><a href="#introduccion">1. Introducción a MikroTik y Balanceo de Carga</a></li>
+                            <li><a href="#conceptos-basicos">2. Conceptos Básicos</a>
+                                <ul>
+                                    <li><a href="#que-es-mikrotik">2.1 ¿Qué es MikroTik?</a></li>
+                                    <li><a href="#que-es-balanceo">2.2 ¿Qué es el balanceo de carga?</a></li>
+                                    <li><a href="#beneficios">2.3 Beneficios del balanceo de carga</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#requisitos">3. Requisitos Previos</a>
+                                <ul>
+                                    <li><a href="#hardware">3.1 Hardware necesario</a></li>
+                                    <li><a href="#software">3.2 Software y versiones</a></li>
+                                    <li><a href="#topologia">3.3 Topología de red recomendada</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#configuracion-basica">4. Configuración Básica del Router</a>
+                                <ul>
+                                    <li><a href="#acceso-inicial">4.1 Acceso inicial al router</a></li>
+                                    <li><a href="#interfaces">4.2 Configuración de interfaces</a></li>
+                                    <li><a href="#direccionamiento">4.3 Direccionamiento IP</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#balanceo-pcc">5. Balanceo de Carga con PCC (Per Connection Classifier)</a>
+                                <ul>
+                                    <li><a href="#pcc-teoria">5.1 Teoría y funcionamiento</a></li>
+                                    <li><a href="#pcc-configuracion">5.2 Configuración paso a paso</a></li>
+                                    <li><a href="#pcc-verificacion">5.3 Verificación y pruebas</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#balanceo-ecmp">6. Balanceo de Carga con ECMP (Equal Cost Multi-Path)</a>
+                                <ul>
+                                    <li><a href="#ecmp-teoria">6.1 Teoría y funcionamiento</a></li>
+                                    <li><a href="#ecmp-configuracion">6.2 Configuración paso a paso</a></li>
+                                    <li><a href="#ecmp-verificacion">6.3 Verificación y pruebas</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#failover">7. Configuración de Failover (Conmutación por error)</a>
+                                <ul>
+                                    <li><a href="#failover-teoria">7.1 Teoría y funcionamiento</a></li>
+                                    <li><a href="#failover-configuracion">7.2 Configuración paso a paso</a></li>
+                                    <li><a href="#failover-verificacion">7.3 Verificación y pruebas</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#casos-uso">8. Casos de Uso y Escenarios Prácticos</a>
+                                <ul>
+                                    <li><a href="#caso-pyme">8.1 Balanceo para PYME</a></li>
+                                    <li><a href="#caso-hogar">8.2 Balanceo para entorno doméstico</a></li>
+                                    <li><a href="#caso-isp">8.3 Balanceo para ISP</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#troubleshooting">9. Solución de Problemas Comunes</a></li>
+                            <li><a href="#recursos">10. Recursos Adicionales</a></li>
+                            <li><a href="#generar-pdf">11. Generar PDF del Manual</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section id="introduccion" class="mb-5">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="h4 mb-0">1. Introducción a MikroTik y Balanceo de Carga</h2>
+                </div>
+                <div class="card-body">
+                    <p>Los routers MikroTik son dispositivos de red potentes y versátiles que ofrecen una amplia gama de funcionalidades a un precio competitivo. Una de las características más útiles es la capacidad de realizar balanceo de carga entre múltiples conexiones a Internet, lo que permite:</p>
+                    
+                    <ul>
+                        <li>Aumentar el ancho de banda disponible combinando múltiples conexiones</li>
+                        <li>Mejorar la redundancia y disponibilidad de la red</li>
+                        <li>Distribuir el tráfico de manera eficiente entre diferentes proveedores</li>
+                        <li>Implementar políticas de enrutamiento basadas en tipo de tráfico</li>
+                    </ul>
+                    
+                    <p>Este manual está diseñado para guiarte a través del proceso de configuración de balanceo de carga en routers MikroTik, desde los conceptos básicos hasta implementaciones avanzadas con esquemas detallados y tutoriales paso a paso.</p>
+                    
+                    <div class="text-center my-4">
+                        <img src="mikrotik-diagram-intro.svg" alt="Diagrama de Balanceo de Carga MikroTik" class="img-fluid rounded shadow-sm" style="max-width: 80%;">
+                        <p class="text-muted mt-2"><small>Figura 1: Esquema básico de balanceo de carga con router MikroTik</small></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Secciones Básicas -->
+        <div id="secciones-basicas"></div>
+        <script>
+            fetch('mikrotik-basic-sections.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('secciones-basicas').innerHTML = data;
+                });
+        </script>
+
+        <!-- Sección de Balanceo PCC -->
+        <div id="balanceo-pcc"></div>
+        <script>
+            fetch('mikrotik-pcc-section.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('balanceo-pcc').innerHTML = data;
+                });
+        </script>
+
+        <!-- Sección de Balanceo ECMP -->
+        <div id="balanceo-ecmp"></div>
+        <script>
+            fetch('mikrotik-ecmp-section.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('balanceo-ecmp').innerHTML = data;
+                });
+        </script>
+
+        <!-- Sección de Failover -->
+        <div id="failover"></div>
+        <script>
+            fetch('mikrotik-failover-section.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('failover').innerHTML = data;
+                });
+        </script>
+
+        <!-- Sección de Casos de Uso -->
+        <div id="casos-uso"></div>
+        <script>
+            fetch('mikrotik-use-cases-section.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('casos-uso').innerHTML = data;
+                });
+        </script>
+
+        <!-- Sección de Solución de Problemas -->
+        <div id="troubleshooting"></div>
+        <script>
+            fetch('mikrotik-troubleshooting-section.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('troubleshooting').innerHTML = data;
+                });
+        </script>
+
+        <!-- Sección de Recursos Adicionales -->
+        <div id="recursos"></div>
+        <script>
+            fetch('mikrotik-resources-section.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('recursos').innerHTML = data;
+                });
+        </script>
+
+        <section id="generar-pdf" class="mb-5">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="h4 mb-0">11. Generar PDF del Manual</h2>
+                </div>
+                <div class="card-body text-center">
+                    <p>Puedes descargar este manual completo en formato PDF para consultarlo sin conexión a Internet.</p>
+                    <button id="generate-pdf" class="btn btn-primary btn-lg">
+                        <i class="bi bi-file-earmark-pdf me-2"></i>Descargar Manual en PDF
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <footer class="text-center py-4 mt-5 border-top">
+            <p>© 2023 Manual de Configuraciones MikroTik - Todos los derechos reservados</p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="mikrotik-script.js"></script>
+</body>
+</html>
